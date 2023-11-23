@@ -8,3 +8,6 @@
 > - SATE/PRETRAINED_MODELS/dataset/pytorch_model.bin --> Tokenphormer/GraphPretrainedModel/dataset/pytorch_model.bin
 > - SATE/TOKENIZED_GRAPH_DATESET/dataset/bert_config.json --> Tokenphormer/GraphPretrainedModel/dataset/config.json
 > - SATE/TOKENIZED_GRAPH_DATESET/dataset/vocab.txt --> Tokenphormer/GraphPretrainedModel/dataset/vocab.txt
+
+> SATE is modified from codes in https://github.com/Meelfy/pytorch_pretrained_BERT
+> Tokenphormer is modified from codes in https://github.com/JHL-HUST/NAGphormer
