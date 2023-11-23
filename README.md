@@ -10,4 +10,5 @@
 > - SATE/TOKENIZED_GRAPH_DATESET/dataset/vocab.txt --> Tokenphormer/GraphPretrainedModel/dataset/vocab.txt
 
 > SATE is modified from codes in https://github.com/Meelfy/pytorch_pretrained_BERT
+>
 > Tokenphormer is modified from codes in https://github.com/JHL-HUST/NAGphormer
