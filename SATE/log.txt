@@ -1,3 +1,0 @@
-2023-11-22 14:36:21,205 - __main__ - INFO - device: cuda n_gpu: 1, distributed training: False, 16-bits training: False
-2023-11-22 14:43:47,538 - __main__ - INFO - ============================ -epoch 0 -train_loss 7.9114 -eval_loss 7.7918
-
