@@ -76,8 +76,8 @@ def parse_args():
                         help='rate for neighborhood jump walk')
     parser.add_argument('--patience', type=int, default=50, 
                         help='Patience for early stopping')
-    parser.add_argument('--sate_token', action="store_true", 
-                        help='use sate token or not')
+    parser.add_argument('--sgpm_token', action="store_true", 
+                        help='use sgpm token or not')
     parser.add_argument('--hop_num', type=int, default=3, 
                         help='number of hop token')
 
@@ -105,8 +105,8 @@ path = "./DatasetPathInfo/" + args.dataset + "/" + args.dataset + '_num=' + str(
 if not os.path.isfile(path):
     utils.mixed_walk_gen(G, args.t_nums, args.w_len, args.dataset, seed=42, uniformRWRate=args.uniformRWRate, nonBackRWRate=args.nonBackRWRate, nJumpRate=args.nJumpRate)
 
-print("sate token exist? ", args.sate_token)
-processed_features = utils.get_token(G, features, args.t_nums, args.w_len, args.dataset, args.sate_token, args.hop_num, args.uniformRWRate, args.nonBackRWRate, args.nJumpRate)
+print("sgpm token exist? ", args.sgpm_token)
+processed_features = utils.get_token(G, features, args.t_nums, args.w_len, args.dataset, args.sgpm_token, args.hop_num, args.uniformRWRate, args.nonBackRWRate, args.nJumpRate)
 
 labels = labels.to(device) 
 batch_data_train = Data.TensorDataset(processed_features[idx_train], labels[idx_train])
@@ -117,7 +117,7 @@ train_data_loader = Data.DataLoader(batch_data_train, batch_size=args.batch_size
 val_data_loader = Data.DataLoader(batch_data_val, batch_size=args.batch_size, shuffle = True)
 test_data_loader = Data.DataLoader(batch_data_test, batch_size=args.batch_size, shuffle = True)
 
-if args.sate_token == False:
+if args.sgpm_token == False:
     numTokens = args.t_nums + 1 + args.hop_num
 else:
     numTokens = args.t_nums + 1 +1 + args.hop_num
@@ -256,12 +256,12 @@ filename = args.dataset + '_test_result.csv'
 
 
 
-df = pd.DataFrame(columns=['SATE-token', 'path-token_nums', 'walk_length', 'time', 'hidden_dim', 'parameters', 'hop_num', 'uniformRWRate', 'nonBackRWRate', 'nJumpRate', 'lr', 'weight_decay', 'n_heads', 'epoch', 'train Loss', 'seed', 'training accuracy'])#列名
+df = pd.DataFrame(columns=['SGPM-token', 'path-token_nums', 'walk_length', 'time', 'hidden_dim', 'parameters', 'hop_num', 'uniformRWRate', 'nonBackRWRate', 'nJumpRate', 'lr', 'weight_decay', 'n_heads', 'epoch', 'train Loss', 'seed', 'training accuracy'])#列名
  
     
 new_data = pd.DataFrame(
-    [[args.sate_token, args.t_nums, args.w_len, train_cost, args.hidden_dim, sum(p.numel() for p in model.parameters()), args.hop_num, args.uniformRWRate, args.nonBackRWRate, args.nJumpRate, args.peak_lr, args.weight_decay, args.n_heads, loading_epoch, train_loss, args.seed ,train_accuracy]], 
-    columns=['SATE-token', 'path-token_nums', 'walk_length', 'time', 'hidden_dim', 'parameters', 'hop_num', 'uniformRWRate', 'nonBackRWRate', 'nJumpRate', 'lr', 'weight_decay', 'n_heads', 'epoch', 'train Loss', 'seed', 'training accuracy']
+    [[args.sgpm_token, args.t_nums, args.w_len, train_cost, args.hidden_dim, sum(p.numel() for p in model.parameters()), args.hop_num, args.uniformRWRate, args.nonBackRWRate, args.nJumpRate, args.peak_lr, args.weight_decay, args.n_heads, loading_epoch, train_loss, args.seed ,train_accuracy]], 
+    columns=['SGPM-token', 'path-token_nums', 'walk_length', 'time', 'hidden_dim', 'parameters', 'hop_num', 'uniformRWRate', 'nonBackRWRate', 'nJumpRate', 'lr', 'weight_decay', 'n_heads', 'epoch', 'train Loss', 'seed', 'training accuracy']
 )
     
 

@@ -191,15 +191,15 @@ def mixed_walk_gen(G, t_num, w_len, dataset, seed, uniformRWRate, nonBackRWRate,
         os.makedirs("./DatasetPathInfo/" + dataset)
     torch.save(nodes_paths, "./DatasetPathInfo/" + dataset + "/" + dataset + '_num=' + str(t_num) + '_len=' + str(w_len) + '_uniformRWRate=' + str(uniformRWRate) + '_nonBackRWRate=' + str(nonBackRWRate) + '_nJumpRate=' + str(nJumpRate) + '.pt')
 
-def get_token(G, features, W, num_steps, dataset, sateToken, hopNum, uniformRWRate, nonBackRWRate, nJumpRate):
-    if sateToken == True:
+def get_token(G, features, W, num_steps, dataset, sgpmToken, hopNum, uniformRWRate, nonBackRWRate, nJumpRate):
+    if sgpmToken == True:
         nodes_features = torch.empty(features.shape[0], W+1 +1 +hopNum, features.shape[1]*2)
-        print("loading sate embedding...")
+        print("loading sgpm embedding...")
         model = BertModel.from_pretrained("./GraphPretrainedModel/"+dataset)
         print(model.embeddings.word_embeddings)
         embedding_matrix = model.embeddings.word_embeddings.weight
         embedding_matrix = embedding_matrix[5:embedding_matrix.shape[0], :]
-        sate_linear = torch.nn.Linear(embedding_matrix.shape[1], features.shape[1])
+        sgpm_linear = torch.nn.Linear(embedding_matrix.shape[1], features.shape[1])
         print("done")
     else:
         nodes_features = torch.empty(features.shape[0], W+1 +hopNum, features.shape[1]*2) # normal
@@ -234,18 +234,18 @@ def get_token(G, features, W, num_steps, dataset, sateToken, hopNum, uniformRWRa
         nodes_features[node, i, :] = feature  
         i += 1
         
-        # ------------------------- SATE-token -------------------------
-        if sateToken == True:
-            node_sate_embedding = embedding_matrix[node]
-            # print(node_sate_embedding.shape)
-            node_sate_embedding = sate_linear(node_sate_embedding)
-            node_sate_embedding = node_sate_embedding.detach()
+        # ------------------------- SGPM-token -------------------------
+        if sgpmToken == True:
+            node_sgpm_embedding = embedding_matrix[node]
+            # print(node_sgpm_embedding.shape)
+            node_sgpm_embedding = sgpm_linear(node_sgpm_embedding)
+            node_sgpm_embedding = node_sgpm_embedding.detach()
             # print("raw------------------------")
-            # print(node_sate_embedding)
-            # node_sate_embedding = torch.div(node_sate_embedding, 4)
+            # print(node_sgpm_embedding)
+            # node_sgpm_embedding = torch.div(node_sgpm_embedding, 4)
             # print("after----------------------------")
-            # print(node_sate_embedding)
-            feature = torch.cat([feature_raw, node_sate_embedding], dim=0)
+            # print(node_sgpm_embedding)
+            feature = torch.cat([feature_raw, node_sgpm_embedding], dim=0)
             nodes_features[node, i, :] = feature  
             i += 1
             
