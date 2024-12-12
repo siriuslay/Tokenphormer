@@ -12,7 +12,7 @@ Graph Neural Networks (GNNs) are commonly used for graph data mining tasks, but 
 
 Below is an illustration of the Tokenphormer framework:
 
-![Framework Overview](framework2.png)
+![Framework Overview](framework.png)
 
 ## Installation
 
