@@ -1,7 +1,3 @@
-Thanks for sharing the details! Below is an updated version of the README, incorporating the specific instructions you've provided for setting up the environment and running both SGPM and Tokenphormer.
-
----
-
 # Tokenphormer: Structure-aware Multi-token Graph Transformer
 
 **Tokenphormer** is a novel graph neural network model designed to address limitations in traditional Graph Neural Networks (GNNs) and Graph Transformers by utilizing multi-token generation. This approach effectively captures both local and global information while retaining graph structural context.
