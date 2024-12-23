@@ -2,6 +2,8 @@
 
 **Tokenphormer** is a novel graph transfomer model designed to address limitations in traditional Graph Neural Networks (GNNs) and Graph Transformers by utilizing multi-token generation. This approach effectively captures both local and global information while retaining graph structural context.
 
+The full version(with Appendix) is online now: [Tokenphormer](https://arxiv.org/abs/2412.15302).
+
 ## Overview
 
 Graph Neural Networks (GNNs) are commonly used for graph data mining tasks, but they face issues like **over-smoothing** and **over-squashing**, limiting their receptive field. Graph Transformers, on the other hand, offer a global receptive field but suffer from noisy, irrelevant nodes and a loss of structural information.
