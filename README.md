@@ -1,4 +1,4 @@
-# Tokenphormer: Structure-aware Multi-token Graph Transformer
+# [AAAI 2025] Tokenphormer: Structure-aware Multi-token Graph Transformer
 
 **Tokenphormer** is a novel graph transfomer model designed to address limitations in traditional Graph Neural Networks (GNNs) and Graph Transformers by utilizing multi-token generation. This approach effectively captures both local and global information while retaining graph structural context.
 
