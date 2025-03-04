@@ -18,6 +18,47 @@ CONFIG_PATH     = DIR_PATH + 'bert_config.json'
 
 if not os.path.exists(DIR_PATH):        os.makedirs(DIR_PATH)
 
+
+def anonymous_walk(G, start_node, length):
+    """
+    G: DGL graph
+    start_node: [int] - start node of the path
+    length: [int] - length of the path
+    
+    Return: a list of int-value nodes --> path 
+    
+    The path is represented by the order of first appearance of nodes.
+    """
+    path = []
+    node_to_idx = {}
+    cur_node = start_node
+    index = 0
+
+    node_to_idx[cur_node] = index
+    path.append(index)
+    index += 1
+
+    for _ in range(length):
+        neighbors = G.successors(cur_node).tolist()
+        if not neighbors:
+            break  # Stop if no outgoing edges
+
+        target_node = random.choice(neighbors)
+
+        if target_node not in node_to_idx:
+            node_to_idx[target_node] = index
+            index += 1
+
+        path.append(node_to_idx[target_node])
+
+        if target_node == start_node:
+            break  # Stop if it returns to the starting node
+
+        cur_node = target_node
+
+    return path
+
+
 def non_backtracking_random_walk(G, start_node, maxLength):
     """
     G: DGL graph
@@ -173,6 +214,9 @@ def generate_random_walk(G, mean, std_dev, isDegree=False, randomWalkType="non-t
                     walk = [str(x) for x in walk]
                 elif randomWalkType == "non-backtrackingWithLength":
                     walk = non_backtracking_random_walk_with_length(G=G, start_node=i, length=length)
+                    walk = [str(x) for x in walk]
+                elif randomWalkType == "anonymous":
+                    walk = anonymous_walk(G=G, start_node=i, length=length)
                     walk = [str(x) for x in walk]
                 else:
                     print("NO SUCH WALK TYPE")
