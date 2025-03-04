@@ -55,7 +55,7 @@ def get_dataset(dataset, split_seed=0):
         features = torch.cat((features, lpe), dim=1)
 
     elif dataset in {"pubmed", "corafull", "computer", "photo", "cs", "physics","cora", "citeseer"}:
-        file_path = "GraphDataset/dataset/"+dataset+".pt"
+        file_path = "SGPM/GraphDataset/dataset/"+dataset+".pt"
 
         data_list = torch.load(file_path)
 

@@ -24,12 +24,12 @@ from SGPM_utils.modeling import BertForMaskedLM, BertConfig
 from SGPM_utils.tokenization import BertTokenizer
 from SGPM_utils.optimization import BertAdam
 
-with open("./log.txt", 'r+') as file:
+with open("SGPM/log.txt", 'r+') as file:
     file.truncate(0)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.INFO)
-handler = logging.FileHandler("./log.txt")
+handler = logging.FileHandler("SGPM/log.txt")
 handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
@@ -121,16 +121,20 @@ def convert_examples_to_features(examples, max_seq_length, tokenizer):
         input_ids = tokenizer.convert_tokens_to_ids(tokens)
         masked_label_ids = tokenizer.convert_tokens_to_ids(masked_lm_labels)
 
-        input_array = np.zeros(max_seq_length, dtype=np.int)
+        input_array = np.zeros(max_seq_length, dtype=int)
+        # input_array = np.zeros(max_seq_length, dtype=np.int)
         input_array[:len(input_ids)] = input_ids
 
-        mask_array = np.zeros(max_seq_length, dtype=np.bool)
+        mask_array = np.zeros(max_seq_length, dtype=bool)
+        # mask_array = np.zeros(max_seq_length, dtype=np.bool)
         mask_array[:len(input_ids)] = 1
 
-        segment_array = np.zeros(max_seq_length, dtype=np.bool)
+        segment_array = np.zeros(max_seq_length, dtype=bool)
+        # segment_array = np.zeros(max_seq_length, dtype=np.bool)
         segment_array[:len(segment_ids)] = segment_ids
 
-        lm_label_array = np.full(max_seq_length, dtype=np.int, fill_value=-1)
+        lm_label_array = np.full(max_seq_length, dtype=int, fill_value=-1)
+        # lm_label_array = np.full(max_seq_length, dtype=np.int, fill_value=-1)
         lm_label_array[masked_lm_positions] = masked_label_ids
 
         feature = InputFeatures(input_ids=input_array,

@@ -10,7 +10,7 @@ import random
 
 # path setting
 dataset = args.dataset
-DIR_PATH        = './TOKENIZED_GRAPH_DATASET/'+dataset+'/'
+DIR_PATH        = 'SGPM/TOKENIZED_GRAPH_DATASET/'+dataset+'/'
 TRAIN_PATH      = DIR_PATH + 'pretrain_train.txt'
 DEV_PATH        = DIR_PATH + 'pretrain_dev.txt'
 VOCAB_PATH      = DIR_PATH + 'vocab.txt'
